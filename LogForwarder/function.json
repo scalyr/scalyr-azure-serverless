@@ -4,7 +4,7 @@
       "type": "eventHubTrigger",
       "name": "eventHubMessages",
       "direction": "in",
-      "eventHubName": "insights-metrics-pt1m",
+      "eventHubName": "scalyrlogs",
       "connection": "scalyr_RootManageSharedAccessKey_EVENTHUB",
       "cardinality": "many",
       "consumerGroup": "$Default"

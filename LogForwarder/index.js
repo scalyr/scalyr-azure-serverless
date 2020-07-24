@@ -25,18 +25,27 @@ module.exports = async function (context, eventHubMessages) {
     var url = `https://app.scalyr.com/api/uploadLogs?token=${token}&host=${host}&logfile=${logfile}&parser=${parser}`;
   }
 
-  const sendEventMessage = async function (eventMessage) {
-    try {
-      const result = await axios.post(url, eventMessage, options);
-    } catch (error) {
-      context.log(
-        "FATAL: Event was not sent. Your setup may be incorrect: ",
-        error.message
-      );
-    }
+  const sendEventMessage = function (eventMessage) {
+    
+      const result = axios.post(url, eventMessage, options).catch(function (error){
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          context.log("Server Responded with eror:",error.response.data);
+          context.log("Status was",error.response.status);
+        }
+        else if (error.request) {
+          context.error("Request Error:",error.request);
+        }
+        else {
+          context.log(
+            "FATAL: Event was not sent. Your setup may be incorrect: ",
+            error.message
+          ); 
+      }
+    });
   };
 
-  //@todo error handling and how to make this async.
   eventHubMessages.forEach((message, index) => {
     if (typeof message === "object") {
       var msg = JSON.parse(JSON.stringify(message));

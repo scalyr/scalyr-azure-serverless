@@ -9,6 +9,7 @@ The general steps are as follows
     - (required) Select `New application setting` and fill `Name` as `SCALYR_WRITE_EVENTS_KEY` and `Value` with [your Scalyr Write Api key](https://app.scalyr.com/keys).
     - Other optional parameters are `SCALYR_HOST`,`SCALYR_LOGFILE`, `SCALYR_REGION` only if not using US region, `SCALYR_PARSER`
  - Upload the source from github and deploy.
+ - You must setup the connection of Scalyr agent app to Eventhub you used. Do this by going to App Settings, Inetgration and clicking on `Eventhub Trigger`
  - To send logs and metrics, you send them to eventhub configured in earlier step.
     1. visit any app, service or resource that you want to monitor and click on `Diagnostic settings` under `Monitoring`
     2. then select `Add diagnostic setting`
